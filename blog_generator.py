@@ -5,7 +5,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import os
 from datetime import datetime
-
+import threading
 def ensure_model_available(model_name):
     """Ensure the model[
         "Researchers", "Data Scientists", "Common People", "Students", "Entrepreneurs",
@@ -1089,6 +1089,29 @@ def send_email(recipient_email, subject, content):
             print(f"Email sent successfully to {recipient_email}.")
     except Exception as e:
         print(f"Error sending email: {e}")
+def process_recipient(recipient, word_of_the_day):
+    try:
+        topic, word_count, audience = generate_random_inputs()
+        print(f"Generating content for: {recipient}")
+        
+        # Generate unique blog content
+        blog_content = get_ollama_response(topic, word_count, audience, word_of_the_day)
+        
+        print(f"Generated Blog Content for {recipient}:\n")
+        print(blog_content)
+        
+        # Send email if content generation was successful
+        if "Error" not in blog_content:
+            send_email(
+                recipient_email=recipient,
+                subject=blog_content["title"],
+                content=blog_content["blog"]
+            )
+            print(f"Email sent to {recipient}")
+        else:
+            print(f"Blog content generation failed for {recipient}. Email will not be sent.")
+    except Exception as e:
+        print(f"An error occurred for {recipient}: {e}")
 
 
 if __name__ == "__main__":
@@ -1103,23 +1126,16 @@ if __name__ == "__main__":
         "edwardlorilla2197.edwardlancelorilla@blogger.com",
         "edwardlorilla2196.edwardlancelorilla@blogger.com",
     ]
+   threads = []
+
+    # Create a thread for each recipient
     for recipient in recipients:
-        topic, word_count, audience = generate_random_inputs()
-        print(f"Generating content for: {recipient}")
-        
-        # Generate unique blog content for each recipient
-        blog_content = get_ollama_response(topic, word_count, audience, word_of_the_day)
-        
-        print("Generated Blog Content:\n")
-        print(blog_content)
-        
-        # Send the blog content via email
-        if "Error" not in blog_content:
-            send_email(
-                recipient_email=recipient,
-                subject=blog_content["title"],
-                content=blog_content["blog"]
-            )
-            print(f"Email sent to {recipient}")
-        else:
-            print(f"Blog content generation failed for {recipient}. Email will not be sent.")
+        thread = threading.Thread(target=process_recipient, args=(recipient, word_of_the_day))
+        threads.append(thread)
+        thread.start()
+
+    # Wait for all threads to finish
+    for thread in threads:
+        thread.join()
+
+    print("All tasks completed.")
