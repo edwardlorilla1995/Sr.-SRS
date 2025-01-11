@@ -6,6 +6,7 @@ from email.mime.multipart import MIMEMultipart
 import os
 from datetime import datetime
 import threading
+
 def ensure_model_available(model_name):
     """Ensure the model[
         "Researchers", "Data Scientists", "Common People", "Students", "Entrepreneurs",
