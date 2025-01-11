@@ -1126,7 +1126,7 @@ if __name__ == "__main__":
         "edwardlorilla2197.edwardlancelorilla@blogger.com",
         "edwardlorilla2196.edwardlancelorilla@blogger.com",
     ]
-   threads = []
+    threads = []
 
     # Create a thread for each recipient
     for recipient in recipients:
