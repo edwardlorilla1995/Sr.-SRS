@@ -1039,10 +1039,6 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
         print("Ollama Response Retrieved Successfully.")
         crew = AICrew(model_name)
     
-        # Step 2: Fact Checker validates the draft
-        print("\nFact Checker: Validating content...")
-        fact_check_results = crew.fact_check(result.stdout.strip())
-        print("Fact check results:\n", fact_check_results)
     
         # Step 3: SEO Specialist optimizes the draft
         print("\nSEO Specialist: Optimizing for SEO...")
