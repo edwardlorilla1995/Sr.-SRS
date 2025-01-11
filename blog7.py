@@ -1123,10 +1123,10 @@ if __name__ == "__main__":
     
     # List of recipients
     recipients = [
-        edwardlorilla2096.edwardlancelorilla@blogger.com,
-        edwardlorilla2097.edwardlancelorilla@blogger.com,
-        edwardlorilla2098.edwardlancelorilla@blogger.com,
-        edwardlorilla2099.edwardlancelorilla@blogger.com
+        "edwardlorilla2096.edwardlancelorilla@blogger.com",
+        "edwardlorilla2097.edwardlancelorilla@blogger.com",
+        "edwardlorilla2098.edwardlancelorilla@blogger.com",
+        "edwardlorilla2099.edwardlancelorilla@blogger.com"
     ]
     threads = []
 
