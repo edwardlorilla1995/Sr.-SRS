@@ -15,57 +15,1680 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v3
 
-    - name: Install System Dependencies
-      run: |
-        sudo apt-get clean
-        sudo rm -rf /var/lib/apt/lists/*
-        sudo apt-get update
-        sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
 
-    - name: Install Ollama
-      run: |
-        echo "Installing Ollama CLI..."
-        curl -fsSL https://ollama.com/install.sh | sh
-        ollama --version
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
 
-    - name: Start Ollama Service
-      run: |
-        echo "Starting Ollama service..."
-        ollama serve &
-        sleep 5  # Allow time for the service to initialize
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
 
-    - name: Verify Ollama Service
-      run: |
-        echo "Checking if Ollama API is running..."
-        curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
 
-    - name: Pull LLaMA Model
-      run: |
-        echo "Pulling the LLaMA 2 model..."
-        if ! ollama pull llama3; then
-          echo "Model pull failed. Please check model availability or permissions."
-          exit 1
-        fi
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
 
-    - name: Generate Blog
-      run: |
-        echo "Generating the blog content..."
-        python blog_generator.py
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog2.py
 
-    - name: Verify Generated Blog File
-      run: |
-        echo "Checking for the generated blog file..."
-        if [ ! -f "generated_blog.txt" ]; then
-          echo "Error: generated_blog.txt not found."
-          exit 1
-        fi
-        echo "Generated blog file verified."
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
 
-    - name: Upload Generated Blog
-      uses: actions/upload-artifact@v3
-      with:
-        name: Generated-Blog
-        path: generated_blog.txt
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+  blog-generation1:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog1.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+
+  blog-generation2:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog3.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+  blog-generation3:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog4.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+  blog-generation4:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog5.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+  blog-generation5:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog6.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+  blog-generation6:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog7.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+  blog-generation7:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog8.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+  blog-generation8:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog9.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+  blog-generation9:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog10.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+  blog-generation10:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog11.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+  blog-generation11:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog12.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+  blog-generation12:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog13.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+  blog-generation13:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog14.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+  blog-generation14:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog15.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+  blog-generation16:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog16.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+
+  blog-generation17:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog17.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+  blog-generation18:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog18.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+  blog-generation19:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog19.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+  blog-generation20:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog20.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+  blog-generation21:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog21.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+  blog-generation22:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog22.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+  blog-generation23:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog23.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+  blog-generation24:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog24.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+  blog-generation25:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog25.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+  blog-generation26:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog26.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+  blog-generation27:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog27.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+  blog-generation28:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog28.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
+  blog-generation29:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install System Dependencies
+        run: |
+          sudo apt-get clean
+          sudo rm -rf /var/lib/apt/lists/*
+          sudo apt-get update
+          sudo apt-get install -y ttf-mscorefonts-installer imagemagick ghostscript curl jq
+
+      - name: Install Ollama
+        run: |
+          echo "Installing Ollama CLI..."
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama --version
+
+      - name: Start Ollama Service
+        run: |
+          echo "Starting Ollama service..."
+          ollama serve &
+          sleep 5  # Allow time for the service to initialize
+
+      - name: Verify Ollama Service
+        run: |
+          echo "Checking if Ollama API is running..."
+          curl http://127.0.0.1:11434/ || (echo "Ollama service not responding" && exit 1)
+
+      - name: Pull LLaMA Model
+        run: |
+          echo "Pulling the LLaMA 2 model..."
+          if ! ollama pull llama3; then
+            echo "Model pull failed. Please check model availability or permissions."
+            exit 1
+          fi
+
+      - name: Generate Blog
+        run: |
+          echo "Generating the blog content..."
+          python blog29.py
+
+      - name: Verify Generated Blog File
+        run: |
+          echo "Checking for the generated blog file..."
+          if [ ! -f "generated_blog.txt" ]; then
+            echo "Error: generated_blog.txt not found."
+            exit 1
+          fi
+          echo "Generated blog file verified."
+
+      - name: Upload Generated Blog
+        uses: actions/upload-artifact@v3
+        with:
+          name: Generated-Blog
+          path: generated_blog.txt
