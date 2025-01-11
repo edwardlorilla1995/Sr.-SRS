@@ -1023,7 +1023,7 @@ def get_ollama_response(input_text, no_words, blog_style, word_of_the_day, model
 
 
     ]                     
-    prompt = random.choice(prompts)
+    prompt = random.choice(prompts) + " Use a professional yet approachable tone, and make sure the content is easy to read, with clear subheadings and varied sentence structure for improved readability. Integrate keywords relevant to the tool and field"
     try:
         ensure_model_available(model_name)
         result = subprocess.run(
