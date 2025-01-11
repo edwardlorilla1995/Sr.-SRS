@@ -1098,7 +1098,6 @@ if __name__ == "__main__":
     
     # List of recipients
     recipients = [
-        "edwardlorilla2048.edwardlancelorilla@blogger.com",
         "edwardlorilla2199.edwardlancelorilla@blogger.com",
         "edwardlorilla2198.edwardlancelorilla@blogger.com",
         "edwardlorilla2197.edwardlancelorilla@blogger.com",
