@@ -64,8 +64,6 @@ jobs:
           fi
           echo "Generated blog file verified."
 
-      - name: Upload Generated Blog
-        uses: actions/upload-artifact@v3
   blog-generation1:
     runs-on: ubuntu-latest
 
